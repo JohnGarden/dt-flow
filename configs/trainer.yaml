@@ -1,0 +1,58 @@
+seed: 42
+
+training:
+  batch_size: 128
+  max_epochs: 10
+  steps_per_epoch: 1000        # use null para varrer a época inteira
+  grad_clip: 1.0
+  precision: fp32               
+  lr: 3.0e-4                    
+  betas: [0.9, 0.95]            
+  weight_decay: 0.01
+  label_smoothing: 0.05
+  class_weights: [1.0, 1.0]     # balance básico (normal, attack)
+  wait_threshold: 0.55          
+  reward_weights:               
+    cTP: 2.0
+    cTN: 0.5
+    cFP: -2.0
+    cFN: -3.0
+    cWAIT: -0.1
+  eval_no_rtg: false
+
+early_stopping:
+  monitor: "pr_auc"             # pr_auc | f1 | val_loss
+  mode: "max"
+  patience: 3
+  min_delta: 0.0001
+  restore_best: true
+
+sampler:
+  use_weighted_windows: true
+  window_pos_weight: 4.0        
+
+# Importance Sampling
+is_dt:
+  enable: true
+  mode: "by_label"              # "by_label" | "by_attack_cat"
+  power: 0.5
+  w_min: 1.0
+  w_max: 10.0
+  normalize_batch: true
+
+inference:
+  checkpoint: "artifacts/dt_baseline_.pt" # vai selecionar sempre o útltimo
+  detection_mode: "any_step"    # "last_step" | "any_step" | "tail_m_of_last_L"
+  grid_wait: [0.30, 0.40, 0.50, 0.55, 0.60, 0.70, 0.80]
+  wait_threshold: 0.30
+  class_cut: 0.55
+  class_cuts: [0.5]
+  tail_m: 1
+  tail_L: 3
+  debug_missed: false
+
+logging:
+  log_every: 50
+  val_every: 1
+  save_ckpt: true
+  out_dir: "artifacts"

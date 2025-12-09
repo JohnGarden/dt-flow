@@ -1,0 +1,8 @@
+Checkpoint: artifacts\dt_baseline_20251208-213758_seed44.pt
+Token-level PR-AUC=0.999614
+Best F1 @ class_cut=0.5000 → 0.994126
+
+Best wait_threshold per TTR mode (rule: minimize P90 if rate>=0.99, else maximize rate):
+last_step: wait_thr=0.3000 rate=0.8962 TTR_P50=0.000048 TTR_P90=0.000988 TTR_avg=5.438342 TTR_max=1040.848663
+any_step: wait_thr=0.3000 rate=0.9973 TTR_P50=0.000000 TTR_P90=0.000000 TTR_avg=0.018527 TTR_max=13.714951
+tail_m_of_last_L: wait_thr=0.3000 rate=0.8736 TTR_P50=0.000045 TTR_P90=0.000541 TTR_avg=7.895029 TTR_max=4812.662779

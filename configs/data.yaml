@@ -1,0 +1,27 @@
+# configs/data.yaml
+
+seed: 42
+
+paths:
+  data_root: "data/raw/unsw-nb15/csv"
+  train_csv: "${paths.data_root}/UNSW_NB15_training-set.csv"
+  test_csv:  "${paths.data_root}/UNSW_NB15_testing-set.csv"
+
+processing:
+  normalize: true
+  categorical_embed: true
+  # Fluxo (segundos)
+  time_unit: "s"
+  flow_keys: ["ct_srv_src", "ct_state_ttl", "ct_dst_ltm", "ct_src_dport_ltm", "ct_dst_sport_ltm", "proto"]
+  time_col: "dur"
+
+sequence:
+  context_length: 20
+  pad_token: 0
+  # Mantido: id do <START>
+  start_action: 3
+
+labels:
+  label_col: "label"
+  attack_cat_col: "attack_cat"
+  
